@@ -64,6 +64,7 @@ public class PlayerControllerMP extends PlayerController {
 	public void resetBlockRemoving() {
 		this.curBlockDamageMP = 0.0F;
 		this.isHittingBlock = false;
+		this.blockHitDelay = 0;
 	}
 
 	public void sendBlockRemoving(int var1, int var2, int var3, int var4) {
@@ -75,7 +76,6 @@ public class PlayerControllerMP extends PlayerController {
 				if(var1 == this.currentBlockX && var2 == this.currentBlockY && var3 == this.currentblockZ) {
 					int var5 = this.mc.theWorld.getBlockId(var1, var2, var3);
 					if(var5 == 0) {
-						this.isHittingBlock = false;
 						return;
 					}
 
@@ -87,7 +87,6 @@ public class PlayerControllerMP extends PlayerController {
 
 					++this.field_9441_h;
 					if(this.curBlockDamageMP >= 1.0F) {
-						this.isHittingBlock = false;
 						this.netClientHandler.addToSendQueue(new Packet14BlockDig(2, var1, var2, var3, var4));
 						this.sendBlockRemoved(var1, var2, var3, var4);
 						this.curBlockDamageMP = 0.0F;
